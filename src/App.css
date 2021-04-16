@@ -4,13 +4,29 @@
 }
 .main-window {
 	display: flex;
-	height: calc(100vh - 3.5rem);
+	height: calc(100vh - 4rem);
 	width: 100%;
-	margin-right: 0.5rem;
+	margin: 0.2rem;
 }
 
 .main-window-container {
 	padding: 1rem;
 	overflow-y: scroll;
 	background-color: var(--color-grey-bg);
+    height: 100%;
+    /* display: flex; */
+    /* justify-content: center; */
+}
+
+
+
+@media only screen and (max-width: 500px) {
+	.main-window{
+        flex-direction: column-reverse;
+        padding: 0;
+    }
+    .main-window-container{
+        padding: 0rem;
+    }
+
 }

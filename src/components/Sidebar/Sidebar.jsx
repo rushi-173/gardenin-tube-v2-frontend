@@ -9,10 +9,6 @@ export function Sidebar() {
 				<small>Home</small>
 			</SidebarItem>
 			<SidebarItem path="/">
-				<i class="fa fa-compass" aria-hidden="true"></i>
-				<small>Explore</small>
-			</SidebarItem>
-			<SidebarItem path="/">
 				<i class="fa fa-indent" aria-hidden="true"></i>
 				<small>Playlists</small>
 			</SidebarItem>
@@ -21,12 +17,12 @@ export function Sidebar() {
 				<small>History</small>
 			</SidebarItem>
 			<SidebarItem path="/">
-				<i class="fa fa-clock-o" aria-hidden="true"></i>
-				<small>Watch_Later</small>
-			</SidebarItem>
-			<SidebarItem path="/">
 				<i class="fa fa-thumbs-up" aria-hidden="true"></i>
 				<small>Liked_Videos</small>
+			</SidebarItem>
+			<SidebarItem path="/">
+				<i class="fa fa-clock-o" aria-hidden="true"></i>
+				<small>Watch_Later</small>
 			</SidebarItem>
 		</div>
 	);

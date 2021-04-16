@@ -18,3 +18,28 @@
 	font-size: 0.8rem;
 	margin: 0.5rem 1rem;
 }
+
+@media only screen and (max-width: 500px) {
+	.sidebar{
+        height: 3.5rem;
+        width: 100%;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        align-items: start;
+        padding: 0;
+        margin-bottom: 0;
+        align-items: center;
+        justify-items: center; 
+    }
+    .avatar-noborder small {
+        display: none;
+    }
+    .sidebar-item {
+        font-size: 0.7rem;
+        margin: 0rem 0.2rem;
+    }
+    .sidebar-item i{
+        margin: 0.2rem;
+    }
+}
