@@ -1,0 +1,16 @@
+.App {
+	height: 100vh;
+	overflow: hidden;
+}
+.main-window {
+	display: flex;
+	height: calc(100vh - 3.5rem);
+	width: 100%;
+	margin-right: 0.5rem;
+}
+
+.main-window-container {
+	padding: 1rem;
+	overflow-y: scroll;
+	background-color: var(--color-grey-bg);
+}

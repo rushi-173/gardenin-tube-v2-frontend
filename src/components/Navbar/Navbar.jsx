@@ -1,9 +1,9 @@
 import "./Navbar.css";
 import { useState } from "react";
 import { Hamburger } from "./Hamburger";
-import { Menu } from "./Menu";
+import { MenuItems } from "./MenuItems";
 import { MainNavItems } from "./MainNavItems";
-import { Search } from "./Search";
+import { Search } from "../Search/Search";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
@@ -36,7 +36,7 @@ export const Navbar = () => {
 			<MainNavItems />
 
 			<ul className={menuStyles} onClick={menuHandler} id="menu">
-				<Menu />
+				<MenuItems />
 			</ul>
 		</nav>
 	);

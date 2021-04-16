@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 
-export function Menu(){
+export function MenuItems(){
     return(
         <>
             <li className="menu-item">
