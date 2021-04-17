@@ -13,14 +13,14 @@ export function VideoCard({ video }) {
 					<h3 style={{ wordBreak: "break-all" }}>
 						{video.title.slice(0, 55)}...
 					</h3>{" "}
-					&nbsp; &nbsp;
+					&nbsp;  &nbsp;
 					<button className="btn-details">
 						<i className="fa fa-ellipsis-v" aria-hidden="true"></i>
 					</button>
 				</div>
 				<div className="description-next">
 					<p>{video.channelInfo.title}</p>
-					<p>views . upload date</p>
+					<p>{video.statistics.likeCount} likes . upload date</p>
 				</div>
 			</div>
 		</div>
