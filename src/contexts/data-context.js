@@ -14,7 +14,7 @@ export function DataProvider({ children }) {
 	const [state, dispatch] = useReducer(reducerFunc, initialState);
 
 	return (
-		<DataContext.Provider value={{ videos: state.videos, dispatch }}>
+		<DataContext.Provider value={{ videos: state.videos, dispatch, playlists: state.playlists }}>
 			{children}
 		</DataContext.Provider>
 	);

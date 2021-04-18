@@ -8,11 +8,11 @@ export function Sidebar() {
 				<i className="fa fa-home" aria-hidden="true"></i>
 				<small>Home</small>
 			</SidebarItem>
-			<SidebarItem path="/">
+			<SidebarItem path="/playlists">
 				<i className="fa fa-indent" aria-hidden="true"></i>
 				<small>Playlists</small>
 			</SidebarItem>
-			<SidebarItem path="/">
+			<SidebarItem path="/history">
 				<i className="fa fa-history" aria-hidden="true"></i>
 				<small>History</small>
 			</SidebarItem>

@@ -1,11 +1,16 @@
 import "./VideoCard.css";
+import {Link} from "react-router-dom";
 
 export function VideoCard({ video }) {
 	console.log("video", video);
 	return (
 		<div className="VideoCard container-column">
+            
 			<div className="card-img-container">
+            <Link to={`/videos/${video.id}`}>
 				<img src={video.thumbnails.high.url} className="responsive-img" />
+                
+            </Link>
 			</div>
 
 			<div className="Videocard-description">
