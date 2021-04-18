@@ -2,9 +2,14 @@ import "./VideoDetails.css";
 import { useData } from "../../contexts/data-context";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
+import { useState } from "react";
+import { VideoCard } from "../../components";
 
 export function VideoDetails() {
 	const { videos, dispatch, playlists } = useData();
+
+	const [currentPlaylistInput, setCurrentPlaylistInput] = useState("");
+	const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
 
 	let { id } = useParams();
 	const video = videos.find((video) => video.id === id);
@@ -19,6 +24,33 @@ export function VideoDetails() {
 		});
 	};
 	console.log(playlists);
+	const togglePlaylistMenu = () => {
+		setShowPlaylistMenu((prev) => (prev === true ? false : true));
+		console.log("calling tog 2");
+	};
+	console.log(showPlaylistMenu);
+
+	const getPlaylistById = (id) =>
+		playlists.filter((playlistItem) => playlistItem.id === id)?.[0];
+
+	const getPlaylistByName = (name) =>
+		playlists.filter((playlistItem) => playlistItem.name === name)?.[0];
+
+	const isInPlaylists = (playlistId, videoId) => {
+		const playlist = getPlaylistById(playlistId);
+		return playlist?.videos.find((videoItem) => videoItem === video.id);
+	};
+
+	const createPlaylist = (e) => {
+		e.preventDefault();
+		setCurrentPlaylistInput("");
+		currentPlaylistInput &&
+			!getPlaylistByName(currentPlaylistInput) &&
+			dispatch({
+				type: "CREATE_PLAYLIST",
+				payload: { playlistName: currentPlaylistInput, videoId: video.id },
+			});
+	};
 
 	return (
 		<div className="VideoDetails">
@@ -71,7 +103,15 @@ export function VideoDetails() {
 									toggleInPlaylists("likedVideos");
 								}}
 							>
-								<i className="fa fa-thumbs-up" role="button"></i>
+								<i
+									className="fa fa-thumbs-up"
+									role="button"
+									style={{
+										color: isInPlaylists("likedVideos", id)
+											? "#51c84d"
+											: "#1f2937",
+									}}
+								></i>
 								<br />
 								<small>{video.statistics.likeCount}likes</small>
 							</div>
@@ -81,7 +121,15 @@ export function VideoDetails() {
 							role="button"
 						>
 							<div className="avatar-noborder container-center">
-								<i className="fa fa-clock-o" aria-hidden="true"></i>
+								<i
+									className="fa fa-clock-o"
+									aria-hidden="true"
+									style={{
+										color: isInPlaylists("watchLaterVideos", id)
+											? "#51c84d"
+											: "#1f2937",
+									}}
+								></i>
 								<br />
 								<small>Watch_Later</small>
 							</div>
@@ -90,9 +138,67 @@ export function VideoDetails() {
 							className="avatar-badge-container reaction-bar-item"
 							role="button"
 						>
-							<div className="avatar-noborder container-center">
-								<div className="add-to-playlist-menu"></div>
-								<i className="fa fa-plus-square" aria-hidden="true"></i>
+							{showPlaylistMenu && (
+								<div className="playlist-menu">
+									<ul>
+										{playlists &&
+											playlists.map((playlistItem, idx) => (
+												<li className="playlist-menu-item">
+													<input
+														checked={isInPlaylists(playlistItem.id)}
+														type="checkbox"
+														onChange={() => toggleInPlaylists(playlistItem.id)}
+														className="check"
+													/>
+													<span>{playlistItem.name}</span>
+												</li>
+											))}
+										<li className="container-center">
+											<form
+												onSubmit={(e) => createPlaylist(e)}
+												className="playlist-form"
+											>
+												<input
+													className="playlist-input"
+													value={currentPlaylistInput}
+													onChange={(e) =>
+														setCurrentPlaylistInput(() => e.target.value)
+													}
+													type="search"
+												/>
+												<button className="btn btn-primary btn-add-playlist">
+													<i
+														className="fa fa-plus-square add-play-icon"
+														aria-hidden="true"
+														style={{ color: "white" }}
+													></i>
+												</button>
+											</form>
+										</li>
+										<li>
+											<button
+												onClick={togglePlaylistMenu}
+												className="badge block btn-close"
+												style={{ position: "absolute", top: "0", right: "0" }}
+											>
+												<i
+													class="fa fa-window-close"
+													style={{ color: "#b91c1c" }}
+												></i>
+											</button>
+										</li>
+									</ul>
+								</div>
+							)}
+							<div
+								className="avatar-noborder container-center"
+								onClick={togglePlaylistMenu}
+							>
+								<i
+									className="fa fa-plus-square"
+									aria-hidden="true"
+									style={{ color: showPlaylistMenu ? "#51c84d" : "#1f2937" }}
+								></i>
 								<br />
 								<small>Add To</small>
 							</div>
@@ -102,7 +208,11 @@ export function VideoDetails() {
 				<div className="v-description-container">{video.description}</div>
 			</div>
 
-			<div className="v-suggestion-container"></div>
+			<div className="v-suggestion-container">
+			{videos.map((video) => {
+					return <VideoCard video={video} />;
+				})}
+			</div>
 		</div>
 	);
 }

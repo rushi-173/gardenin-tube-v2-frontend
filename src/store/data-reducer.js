@@ -50,6 +50,25 @@ export const reducerFunc = (state, { type, payload }) => {
 			return isInPlaylist
 				? removeFromPlaylist(state, payload.videoId, payload.playlistId)
 				: addToPlaylist(state, payload.videoId, payload.playlistId);
+		case "CREATE_PLAYLIST":
+			return {
+				...state,
+				playlists: [
+					...state.playlists,
+					{
+						name: payload.playlistName,
+						id: uuid(),
+						videos: [payload.videoId],
+					},
+				],
+			};
+		case "DELETE_PLAYLIST":
+			return {
+				...state,
+				playlists: state.playlists.filter(
+					(playlistItem) => playlistItem.id !== payload.playlistId
+				),
+			};
 		default:
 			return state;
 	}
