@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Navbar, Sidebar } from "./components";
-import { Home, VideoDetails, Playlist } from "./pages";
+import { Home, VideoDetails, Playlist, Playlists } from "./pages";
 import axios from "axios";
 import { useData } from "./contexts/data-context";
 import { useEffect } from "react";
@@ -31,9 +31,12 @@ function App() {
 				<Sidebar />
 				<div className="main-window-container">
 					<Routes>
-						<Route path="/videos/:id" element={<VideoDetails />} />
-						<Route path="/playlist/:id" element={<Playlist />} />
-						<Route path="/" element={<Home />} />
+						<Route exact path="/" element={<Home />} />
+						<Route exact path="/videos/:id" element={<VideoDetails />} />
+						<Route exact path="/playlist/:id" element={<Playlist />} />
+						<Route exact path="/videos" element={<Home />} />
+						<Route exact path="/playlist" element={<Playlists />} />
+						<Route exact path="/playlists" element={<Playlists />} />
 					</Routes>
 				</div>
 			</div>

@@ -66,6 +66,7 @@ export function PlaylistVideoCard({ video, pid }) {
 						}}>Close</button>
 						<button className="btn btn-danger" onClick={() => {
 							toggleInPlaylists(pid);
+							setShowModal((prev)=>prev==="none"?"flex":"none")
 						}}>Delete</button>
 
 					</div>                    

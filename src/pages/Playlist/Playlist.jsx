@@ -27,4 +27,3 @@ export function Playlist() {
 	);
 }
 
-export default Playlist;

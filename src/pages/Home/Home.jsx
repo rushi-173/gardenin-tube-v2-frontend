@@ -11,11 +11,9 @@ export function Home() {
 			<div className="top-submenu"></div>
 			<div className="Videos-Container">
 				{videos.map((video) => {
-					return <VideoCard video={video} />;
+					return <VideoCard video={video} key={video.id} />;
 				})}
 			</div>
 		</div>
 	);
 }
-
-export default Home;

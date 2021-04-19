@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { useState, useEffect } from "react";
 import { VideoCard } from "../../components";
+import axios from "axios";
 
 export function VideoDetails() {
 	const { videos, dispatch, playlists } = useData();
@@ -12,7 +13,11 @@ export function VideoDetails() {
 	const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
 
 	let { id } = useParams();
-	const video = videos.find((video) => video.id === id);
+	console.log(videos);
+	let video = videos.find((video) => video.id === id);
+	if (!video) {
+		video = { title: "", description: "" };
+	}
 	console.log(id, video);
 	// const id = "jD8n2CKEWtA";
 	const url = `https://www.youtube.com/watch?v=${id}`;
@@ -52,12 +57,13 @@ export function VideoDetails() {
 			});
 	};
 
-	useEffect(() => {
-		if(!isInPlaylists("history",id)){
-			toggleInPlaylists("history")
-		}
-	}, [id])
-	console.log(playlists)
+	// useEffect(() => {
+		// if (!isInPlaylists("history", id)) {
+		// 	toggleInPlaylists("history");
+		// }
+		
+	// }, [id]);
+	// console.log(playlists);
 
 	return (
 		<div className="VideoDetails">
@@ -91,14 +97,14 @@ export function VideoDetails() {
 								style={{ width: "2rem", height: "2rem" }}
 							>
 								<img
-									src={video.channelInfo.thumbnails.default.url}
-									alt="image"
+									src={video.channelInfo?.thumbnails.default.url}
+									alt="thumb-new"
 									class="avatar-img"
 								/>
 							</div>
 						</div>
 						<div className="container-column" role="button">
-							<h5>{video.channelInfo.title}</h5>
+							<h5>{video.channelInfo?.title}</h5>
 						</div>
 						<div
 							className="avatar-badge-container reaction-bar-item"
@@ -120,16 +126,19 @@ export function VideoDetails() {
 									}}
 								></i>
 								<br />
-								<small>{video.statistics.likeCount}likes</small>
+								<small>{video.statistics?.likeCount}likes</small>
 							</div>
 						</div>
 						<div
 							className="avatar-badge-container reaction-bar-item"
 							role="button"
 						>
-							<div className="avatar-noborder container-center" onClick={() => {
+							<div
+								className="avatar-noborder container-center"
+								onClick={() => {
 									toggleInPlaylists("watchLaterVideos");
-								}}>
+								}}
+							>
 								<i
 									className="fa fa-clock-o"
 									role="button"
@@ -155,19 +164,22 @@ export function VideoDetails() {
 										</li>
 										{playlists &&
 											playlists.map((playlistItem) => {
-												if(playlistItem.id !== "history"){
-												return(
-												<li className="playlist-menu-item">
-													<input
-														checked={isInPlaylists(playlistItem.id)}
-														type="checkbox"
-														onChange={() => toggleInPlaylists(playlistItem.id)}
-														className="check"
-													/>
-													<span>{playlistItem.name}</span>
-												</li>
-											)}
-											return null;
+												if (playlistItem.id !== "history") {
+													return (
+														<li className="playlist-menu-item">
+															<input
+																checked={isInPlaylists(playlistItem.id)}
+																type="checkbox"
+																onChange={() =>
+																	toggleInPlaylists(playlistItem.id)
+																}
+																className="check"
+															/>
+															<span>{playlistItem.name}</span>
+														</li>
+													);
+												}
+												return null;
 											})}
 										<li className="container-center">
 											<form
@@ -225,7 +237,7 @@ export function VideoDetails() {
 			</div>
 
 			<div className="v-suggestion-container">
-			{videos.map((video) => {
+				{videos.map((video) => {
 					return <VideoCard video={video} />;
 				})}
 			</div>
@@ -233,4 +245,3 @@ export function VideoDetails() {
 	);
 }
 
-export default VideoDetails;
