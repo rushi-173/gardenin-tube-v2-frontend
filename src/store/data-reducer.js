@@ -95,5 +95,12 @@ export const initialState = {
 			videos: [],
 			isDefault: true,
 		},
-	],
+		{
+			name: "history",
+			id: "history",
+			videos: [],
+			isDefault: true,
+		},
+		
+	]
 };

@@ -19,19 +19,20 @@ export function MenuItems(){
             {/* <li className="menu-item">
                 <Link to="/products">Fruit Plants</Link>
             </li> */}
+            
             <li className="menu-item">
                 <b>
-                    <Link to="/">Liked Videos</Link>
+                    <Link to="/playlist/history">History</Link>
                 </b>
             </li>
             <li className="menu-item">
                 <b>
-                    <Link to="/">Watch Later</Link>
+                    <Link to="/playlist/likedVideos">Liked Videos</Link>
                 </b>
             </li>
             <li className="menu-item">
                 <b>
-                    <Link to="/">History</Link>
+                    <Link to="/playlist/watchLaterVideos">Watch Later</Link>
                 </b>
             </li>
             <li className="menu-item">

@@ -2,7 +2,7 @@ import "./VideoDetails.css";
 import { useData } from "../../contexts/data-context";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VideoCard } from "../../components";
 
 export function VideoDetails() {
@@ -51,6 +51,13 @@ export function VideoDetails() {
 				payload: { playlistName: currentPlaylistInput, videoId: video.id },
 			});
 	};
+
+	useEffect(() => {
+		if(!isInPlaylists("history",id)){
+			toggleInPlaylists("history")
+		}
+	}, [id])
+	console.log(playlists)
 
 	return (
 		<div className="VideoDetails">
@@ -120,10 +127,12 @@ export function VideoDetails() {
 							className="avatar-badge-container reaction-bar-item"
 							role="button"
 						>
-							<div className="avatar-noborder container-center">
+							<div className="avatar-noborder container-center" onClick={() => {
+									toggleInPlaylists("watchLaterVideos");
+								}}>
 								<i
 									className="fa fa-clock-o"
-									aria-hidden="true"
+									role="button"
 									style={{
 										color: isInPlaylists("watchLaterVideos", id)
 											? "#51c84d"
@@ -141,8 +150,13 @@ export function VideoDetails() {
 							{showPlaylistMenu && (
 								<div className="playlist-menu">
 									<ul>
+										<li>
+											<h1>Save to-</h1>
+										</li>
 										{playlists &&
-											playlists.map((playlistItem, idx) => (
+											playlists.map((playlistItem) => {
+												if(playlistItem.id !== "history"){
+												return(
 												<li className="playlist-menu-item">
 													<input
 														checked={isInPlaylists(playlistItem.id)}
@@ -152,7 +166,9 @@ export function VideoDetails() {
 													/>
 													<span>{playlistItem.name}</span>
 												</li>
-											))}
+											)}
+											return null;
+											})}
 										<li className="container-center">
 											<form
 												onSubmit={(e) => createPlaylist(e)}

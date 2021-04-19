@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Navbar, Sidebar } from "./components";
-import { Home, VideoDetails } from "./pages";
+import { Home, VideoDetails, Playlist } from "./pages";
 import axios from "axios";
 import { useData } from "./contexts/data-context";
 import { useEffect } from "react";
@@ -32,6 +32,7 @@ function App() {
 				<div className="main-window-container">
 					<Routes>
 						<Route path="/videos/:id" element={<VideoDetails />} />
+						<Route path="/playlist/:id" element={<Playlist />} />
 						<Route path="/" element={<Home />} />
 					</Routes>
 				</div>
